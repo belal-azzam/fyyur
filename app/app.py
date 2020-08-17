@@ -15,20 +15,21 @@ from flask import (
   redirect,
   url_for
 )
+from .models import Artist
 from flask_moment import Moment
 import logging
 from logging import Formatter, FileHandler
 from flask_wtf import Form
-from forms import *
+from app.forms import *
 from flask_migrate import Migrate
-from sqlalchemy.ext.hybrid import hybrid_property, hybrid_method
+from app.models import db,Artist,Venue,Show
 #----------------------------------------------------------------------------#
 # App Config.
 #----------------------------------------------------------------------------#
 app = Flask(__name__)
 db.init_app(app)
 moment = Moment(app)
-app.config.from_object('config')
+app.config.from_object('app.config')
 migrate = Migrate(app, db)
 
 
@@ -143,7 +144,7 @@ def create_venue_submission():
     db.session.add(venue)
     db.session.commit()
     print(venue)
-    flash('Venue ' + data + ' was successfully listed!')
+    flash('Venue ' + data['name'] + ' was successfully listed!')
   except:
     flash('An error occurred. Venue ' + data['name'] + ' could not be listed.')
   finally:
@@ -369,6 +370,8 @@ if not app.debug:
 if __name__ == '__main__':
     app.run()
 
+def run():
+  app.run()
 # Or specify port manually:
 '''
 if __name__ == '__main__':

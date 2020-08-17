@@ -9,5 +9,5 @@ DEBUG = True
 # Connect to the database
 
 
-
+SQLALCHEMY_TRACK_MODIFICATIONS = False
 SQLALCHEMY_DATABASE_URI = 'postgres://bilal:bilal@localhost:5432/fyyur'
